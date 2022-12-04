@@ -42,18 +42,31 @@ if __name__ == "__main__":
         url = search_pre + param
         response = requests.get(url=url, headers=user_agent)
         soup = BeautifulSoup(response.text, 'html.parser')
+        pagination = -1
+        for pageul in soup.find_all(attrs={"class":"pagination"}):
+            for a in pageul.select("li > a"):
+                print(a.text)
+                if a.text != u"»":
+                    pagination = max(pagination, int(a.text))
+            pagination = min(pagination, 5)
         table = soup.select("div > table")[0]
         if index == 0:
             for thead in table.select("thead > tr"):
                 for th_name in thead.select("tr > th"):
                     table_head.append(th_name.text)
-        for tr in table.select("tbody > tr"):
-            i = 0
-            result = {}
-            for td in tr.find_all(name="td"):
-                result[i] = td.text
-                i += 1
-            search_results.append(result)
+        for pageNum in range(1, pagination):
+            print(pageNum, param)
+            url = search_pre + param + "&page=" + str(pagination)
+            response = requests.get(url=url, headers=user_agent)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            table = soup.select("div > table")[0]
+            for tr in table.select("tbody > tr"):
+                i = 0
+                result = {}
+                for td in tr.find_all(name="td"):
+                    result[i] = td.text
+                    i += 1
+                search_results.append(result)
         index += 1
 
     to_excel(table_head, search_results).save("./医药价格.xls")
