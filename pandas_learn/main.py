@@ -1,6 +1,4 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import pymysql
 
 INSERT_STUDENT_SQL = "insert into student (number, realName, classNo, identity, phone, roomNumber) values ('%s', '%s', '%s', '%s', '%s', '%s');"
