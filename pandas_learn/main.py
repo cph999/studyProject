@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 # coding=utf-8
+=======
+>>>>>>> 3a9f70fd39eb6e81ac8fff7e61df8e67bfaaa29e
 import pandas as pd
 import pymysql
 
 INSERT_STUDENT_SQL = "insert into student (number, realName, classNo, identity, phone, roomNumber) values ('%s', '%s', '%s', '%s', '%s', '%s');"
 SELECT_UNIQUE_SQL = ""
 
+<<<<<<< HEAD
+=======
+# 打开数据库连接
+>>>>>>> 3a9f70fd39eb6e81ac8fff7e61df8e67bfaaa29e
 db = pymysql.connect(host='121.196.223.94',
                      port=3307,
                      user='root',

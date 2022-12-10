@@ -17,6 +17,10 @@ def to_excel(head_data, records):
     # 写入表头
     for filed in range(0, len(head_data)):
         sheet.write(0, filed, head_data[filed])
+<<<<<<< HEAD
+=======
+    print(records[0][0])
+>>>>>>> 3a9f70fd39eb6e81ac8fff7e61df8e67bfaaa29e
     # 写入数据记录
     for row in range(1, len(records) + 1):
         for col in range(0, len(head_data)):
