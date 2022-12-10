@@ -12,7 +12,6 @@ def to_excel(head_data, records):
     # 写入表头
     for filed in range(0, len(head_data)):
         sheet.write(0, filed, head_data[filed])
-    print(records[0][0])
     # 写入数据记录
     for row in range(1, len(records) + 1):
         for col in range(0, len(head_data)):
@@ -25,7 +24,9 @@ def to_excel(head_data, records):
 
 
 category = []
-index = 1
+index = 0
+p_index = 0
+l_index = 0
 columns = ["category_level", "parent_category_id", "category_id", "category_name"]
 if __name__ == "__main__":
     headers = {
@@ -42,17 +43,20 @@ if __name__ == "__main__":
 
     for box in mainBox:
         parent_category = box.select(".item-title")[0].span.text
-        result = [1, 0, index, parent_category]
+        l_index += 1
+        p_id = l_index
+        result = [1, 0, l_index, parent_category]
         category.append(result)
-        parent_category_id = index
-        index += 1
-        for dt_category in box.find_all(name="dt"):
-            for a_category in dt_category.a:
-                result = [2, index, 0, a_category]
-                category.append(result)
-            dd = dt_category.find_next(name="dd")
+
+        for dt_now in box.find_all(name="dt"):
+            l_index += 1
+            pp_id = l_index
+            result = [2, p_id, l_index, dt_now.a.text]
+            category.append(result)
+            dd = dt_now.find_next(name="dd")
             for a in dd.select("a"):
-                result = [3, 0, 0, a.text]
+                l_index += 1
+                result = [3, pp_id, l_index, a.text]
                 category.append(result)
     to_excel(columns, category).save("./category.xls")
 

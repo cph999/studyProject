@@ -17,7 +17,6 @@ def to_excel(head_data, records):
     # 写入表头
     for filed in range(0, len(head_data)):
         sheet.write(0, filed, head_data[filed])
-    print(records[0][0])
     # 写入数据记录
     for row in range(1, len(records) + 1):
         for col in range(0, len(head_data)):
